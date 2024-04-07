@@ -49,7 +49,7 @@ def inference(videostream, det, ser):
             break
 
         det.detect(input_data)
-        if det.boxes is not None and det.boxes[0] > 0.70:
+        if det.boxes is not None and det.scores[0] > 0.70:
             outFormat = det.getRawFormatForArdu(det.boxes[0])
             print(det.boxes)
             outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}".encode()
