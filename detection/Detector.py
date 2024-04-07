@@ -78,11 +78,11 @@ class Detector:
 
         return (boxCenter[0] - self.imgCenter[0], boxCenter[1] - self.imgCenter[1])
 
-    def getRawFormatForArdu(self, box):
-        xMin = box[1]
-        yMin = box[0]
-        xMax = box[3]
-        yMax = box[2]
+    def getRawFormatForArdu(self, box, res=1000):
+        xMin = int(box[1]*res)
+        yMin = int(box[0]*res)
+        xMax = int(box[3]*res)
+        yMax = int(box[2]*res)
         boxHeight = xMax - xMin
         boxWidth = yMax - yMin
         return xMin, yMin, boxWidth, boxHeight
