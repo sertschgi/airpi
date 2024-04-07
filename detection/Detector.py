@@ -72,6 +72,8 @@ class Detector:
         self.scores = self.interpreter.get_tensor(self.output_details[self.scores_idx]['index'])[
             0]  # Confidence of detected objects
 
+        print(self.boxes)
+
     def getOffset(self, box):
         boxCenter = ((box[1] + box[3]) / 2, (box[0] + box[2]) / 2)
 
