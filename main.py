@@ -31,6 +31,10 @@ def inference(videostream, det, ser):
         # Grab frame from video stream
         frame1 = videostream.read()
 
+        if not frame1:
+            print("Could not read frame. Exiting... Consider checking your camera configuration.")
+            quit(-1)
+
         # Acquire frame and resize to expected shape [1xHxWx3]
         frame = frame1.copy()
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
