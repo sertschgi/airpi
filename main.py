@@ -11,7 +11,7 @@ def parseArgs():
     parser.add_argument('--serial_port', help='Name of the Serial-Port', default='ttyAMA0')
     parser.add_argument('--serial_baudrate', help='Name of the Serial-Port', default=9600)
 
-    parser.add_argument('--modeldir', help='Folder the .tflite file is located in', required=True)
+    parser.add_argument('--modeldir', help='Folder the .tflite file is located in', default='model')
     parser.add_argument('--checkpoint', help='Path of the Checkpoint (tflite file)',
                         default='detect.tflite')
     parser.add_argument('--labelmap', help='Name of the labelmap file, if different than labelmap.txt',
