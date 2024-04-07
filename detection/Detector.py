@@ -3,6 +3,7 @@ import importlib.util
 
 from config.config import get_USE_TPU
 
+use_TPU = get_USE_TPU()
 pkg = importlib.util.find_spec('tflite_runtime')
 if pkg:
     from tflite_runtime.interpreter import Interpreter
@@ -10,7 +11,7 @@ if pkg:
         from tflite_runtime.interpreter import load_delegate
 else:
     from tensorflow.lite.python.interpreter import Interpreter
-    if get_USE_TPU():
+    if use_TPU:
         from tensorflow.lite.python.interpreter import load_delegate
 
 
