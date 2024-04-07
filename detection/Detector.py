@@ -66,13 +66,11 @@ class Detector:
         self.interpreter.invoke()
 
         self.boxes = self.interpreter.get_tensor(self.output_details[self.boxes_idx]['index'])[
-            0].sort()  # Bounding box coordinates of detected objects
+            0]  # Bounding box coordinates of detected objects
         self.classes = self.interpreter.get_tensor(self.output_details[self.classes_idx]['index'])[
             0]  # Class index of detected objects
         self.scores = self.interpreter.get_tensor(self.output_details[self.scores_idx]['index'])[
             0]  # Confidence of detected objects
-
-        print(self.scores)
 
 
     def getOffset(self, box):
