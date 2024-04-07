@@ -38,9 +38,12 @@ def inference(videostream, det, ser):
 
         # Acquire frame and resize to expected shape [1xHxWx3]
         frame = frame1.copy()
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        frame_resized = cv2.resize(frame_rgb, (det.height, det.width))
-        input_data = np.expand_dims(frame_resized, axis=0)
+
+        print("frame1:", frame[0])
+
+        input_data = np.expand_dims(frame1, axis=0)
+
+        print("input_data:", input_data[0])
 
         det.detect(input_data)
         if det.boxes is not None:
