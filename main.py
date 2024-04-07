@@ -42,6 +42,11 @@ def inference(videostream, det, ser):
         frame_resized = cv2.resize(frame_rgb, (det.height, det.width))
         input_data = np.expand_dims(frame_resized, axis=0)
 
+        cv2.imshow('image', frame_rgb)
+        if cv2.waitKey(1) == ord('q'):
+            cv2.destroyAllWindows()
+            break
+
         print(input_data)
 
         det.detect(input_data)
