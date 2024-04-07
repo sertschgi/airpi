@@ -73,6 +73,7 @@ class Detector:
             0]  # Confidence of detected objects
 
         print(self.boxes)
+        print(self.input_details[0])
 
     def getOffset(self, box):
         boxCenter = ((box[1] + box[3]) / 2, (box[0] + box[2]) / 2)
