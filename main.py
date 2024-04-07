@@ -2,9 +2,11 @@ import cv2
 import numpy as np
 import serial
 import time
+import argparse
 
 from detection import Detector
 from video import VideoStream
+
 
 def inference(videostream, det, ser):
     while True:
@@ -34,18 +36,21 @@ def parseArgs():
     parser.add_argument('--serial_baudrate', help='Name of the Serial-Port', default=9600)
 
     parser.add_argument('--modeldir', help='Folder the .tflite file is located in', required=True)
-    parser.add_argument('--checkpoint', help='Path of the Checkpoint (tflite file)', default='detect.tflite')
+    parser.add_argument('--checkpoint', help='Path of the Checkpoint (tflite file)',
+                        default='detect.tflite')
     parser.add_argument('--labelmap', help='Name of the labelmap file, if different than labelmap.txt',
                         default='labelmap.txt')
-    parser.add_argument('--threshold', help='Minimum confidence threshold for displaying detected objects', default=0.8)
+    parser.add_argument('--threshold', help='Minimum confidence threshold for displaying detected objects',
+                        default=0.8)
     parser.add_argument('--resolution',
                         help='Desired webcam resolution in WxH. If the webcam does not support the resolution entered, errors may occur.',
                         default='1280x720')
-    parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed up detection', action='store_true'
+    parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed up detection', action='store_true')
 
     return parser.parse_args()
 
-# Press the green button in the gutter to run the script.
+
+
 if __name__ == '__main__':
     args = parseArgs()
 
@@ -73,3 +78,4 @@ if __name__ == '__main__':
     time.sleep(1)
 
     inference(videostream, det, ser)
+
