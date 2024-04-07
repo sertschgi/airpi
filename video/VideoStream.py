@@ -7,15 +7,15 @@ class VideoStream:
     """Camera object that controls video streaming from the Picamera"""
 
     def __init__(self, resolution=(650, 420), framerate=30):
-        picam2 = Picamera2()
+        self.picam2 = Picamera2()
 
-        config = picam2.create_preview_configuration(main={'format': 'RGB888', 'size': resolution})
-        picam2.configure(config)
+        config = self.picam2.create_preview_configuration(main={'format': 'RGB888', 'size': resolution})
+        self.picam2.configure(config)
 
-        picam2.start()
+        self.picam2.start()
         time.sleep(1)
 
-        self.frame = picam2.capture_array("main")
+        self.frame = self.picam2.capture_array("main")
 
         # Variable to control when the camera is stopped
         self.stopped = False
@@ -35,7 +35,7 @@ class VideoStream:
                 return
 
             # Otherwise, grab the next frame from the stream
-            (self.grabbed, self.frame) = self.stream.read()
+            self.frame = self.picam2.capture_array("main")
 
     def read(self):
         # Return the most recent frame
