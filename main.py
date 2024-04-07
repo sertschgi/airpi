@@ -43,7 +43,7 @@ def inference(videostream, det, ser):
         input_data = np.expand_dims(frame_resized, axis=0)
 
         det.detect(input_data)
-        if len(det.boxes) > 0:
+        if det.boxes is not None:
             outFormat = det.getRawFormatForArdu(det.boxes[0])
             outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}"
             ser.write(outStr)
