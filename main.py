@@ -4,30 +4,6 @@ import serial
 import time
 import argparse
 
-from detection import Detector
-from video import VideoStream
-
-
-def inference(videostream, det, ser):
-    while True:
-        # Grab frame from video stream
-        frame1 = videostream.read()
-
-        # Acquire frame and resize to expected shape [1xHxWx3]
-        frame = frame1.copy()
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        frame_resized = cv2.resize(frame_rgb, (det.height, det.width))
-        input_data = np.expand_dims(frame_resized, axis=0)
-
-        det.detect(input_data)
-        offset = det.getOffset(det.boxes[0])
-
-        outFormat = det.getRawFormatForArdu(det.boxes[0])
-        outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}"
-        ser.write(outStr)
-        print(outStr)
-
-
 def parseArgs():
     # Define and parse input arguments
     parser = argparse.ArgumentParser()
@@ -50,9 +26,32 @@ def parseArgs():
     return parser.parse_args()
 
 
+def inference(videostream, det, ser):
+    while True:
+        # Grab frame from video stream
+        frame1 = videostream.read()
+
+        # Acquire frame and resize to expected shape [1xHxWx3]
+        frame = frame1.copy()
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame_resized = cv2.resize(frame_rgb, (det.height, det.width))
+        input_data = np.expand_dims(frame_resized, axis=0)
+
+        det.detect(input_data)
+        offset = det.getOffset(det.boxes[0])
+
+        outFormat = det.getRawFormatForArdu(det.boxes[0])
+        outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}"
+        ser.write(outStr)
+        print(outStr)
+
 
 if __name__ == '__main__':
     args = parseArgs()
+    use_TPU = args.edgetpu
+
+    from detection import Detector
+    from video import VideoStream
 
     SERIAL_PORT = args.serial_port
     SERIAL_BAUDRATE = int(args.serial_baudrate)
@@ -60,7 +59,6 @@ if __name__ == '__main__':
     min_conf_threshold = float(args.threshold)
     resW, resH = args.resolution.split('x')
     imW, imH = int(resW), int(resH)
-    use_TPU = args.edgetpu
 
     offsetThreshold = 0.2
 
