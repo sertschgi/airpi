@@ -16,14 +16,13 @@ else:
 
 
 class Detector:
-    def __init__(self, PATHS, IMW, IMH, useTPU=False, MCT=0.5):
+    def __init__(self, PATHS, IMW, IMH, MCT=0.5):
         self.scores = []
         self.boxes = []
         self.classes = []
 
         self.IMW = IMW
         self.IMH = IMH
-        self.useTPU = useTPU
         self.MCT = MCT
 
         self.imgCenter = (IMW / 2, IMH / 2)

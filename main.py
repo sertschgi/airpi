@@ -38,7 +38,6 @@ def inference(videostream, det, ser):
         input_data = np.expand_dims(frame_resized, axis=0)
 
         det.detect(input_data)
-        offset = det.getOffset(det.boxes[0])
 
         outFormat = det.getRawFormatForArdu(det.boxes[0])
         outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}"
@@ -46,7 +45,7 @@ def inference(videostream, det, ser):
         print(outStr)
 
 
-if __name__ == '__main__':
+def setup():
     args = parseArgs()
 
     from config.config import set_USE_TPU
@@ -62,8 +61,6 @@ if __name__ == '__main__':
     resW, resH = args.resolution.split('x')
     imW, imH = int(resW), int(resH)
 
-    offsetThreshold = 0.2
-
     ser = serial.Serial(f'/dev/{SERIAL_PORT}', SERIAL_BAUDRATE)
 
     PATHS = {
@@ -71,10 +68,19 @@ if __name__ == '__main__':
         'LABELMAP': args.labelmap
     }
 
-    det = Detector(PATHS, imW, imH, useTPU=use_TPU)
+    det = Detector(PATHS, imW, imH)
 
     # Initialize video stream
     videostream = VideoStream(resolution=(imW, imH), framerate=30).start()
     time.sleep(1)
 
-    inference(videostream, det, ser)
+    return videostream, det, ser
+
+
+def main():
+    vid, det, ser = setup()
+    inference(vid, det, ser)
+
+
+if __name__ == '__main__':
+    main()
