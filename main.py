@@ -31,7 +31,7 @@ def inference(videostream, det, ser):
         # Grab frame from video stream
         frame1 = videostream.read()
 
-        if not frame1:
+        if not any(frame1):
             print("Could not read frame. Exiting... Consider checking your camera configuration.")
             videostream.stop()
             quit(-1)
