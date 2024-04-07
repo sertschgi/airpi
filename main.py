@@ -68,10 +68,10 @@ def setup():
         'LABELMAP': args.labelmap
     }
 
-    det = Detector(PATHS, imW, imH)
+    det = Detector.Detector(PATHS, imW, imH)
 
     # Initialize video stream
-    videostream = VideoStream(resolution=(imW, imH), framerate=30).start()
+    videostream = VideoStream.VideoStream(resolution=(imW, imH), framerate=30).start()
     time.sleep(1)
 
     return videostream, det, ser
