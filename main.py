@@ -48,7 +48,9 @@ def inference(videostream, det, ser):
 
 if __name__ == '__main__':
     args = parseArgs()
-    use_TPU = args.edgetpu
+
+    from config.config import set_USE_TPU
+    set_USE_TPU(args.edgetpu)
 
     from detection import Detector
     from video import VideoStream
@@ -76,4 +78,3 @@ if __name__ == '__main__':
     time.sleep(1)
 
     inference(videostream, det, ser)
-
