@@ -47,8 +47,6 @@ def inference(videostream, det, ser):
             cv2.destroyAllWindows()
             break
 
-        print(input_data)
-
         det.detect(input_data)
         if det.boxes is not None:
             outFormat = det.getRawFormatForArdu(det.boxes[0])
