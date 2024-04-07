@@ -52,7 +52,7 @@ def inference(videostream, det, ser):
         if det.boxes is not None:
             outFormat = det.getRawFormatForArdu(det.boxes[0])
             print(det.boxes)
-            outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}"
+            outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}".encode()
             ser.write(outStr)
             print(outStr)
 
