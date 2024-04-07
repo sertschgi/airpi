@@ -9,7 +9,7 @@ class VideoStream:
     def __init__(self, resolution=(650, 420), framerate=30):
         self.picam2 = Picamera2()
 
-        config = self.picam2.create_preview_configuration(main={'format': 'BGR888', 'size': resolution})
+        config = self.picam2.create_preview_configuration(main={'format': 'RGB888', 'size': resolution})
         self.picam2.configure(config)
 
         self.picam2.start()
