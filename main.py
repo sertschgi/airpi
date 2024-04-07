@@ -33,6 +33,7 @@ def inference(videostream, det, ser):
 
         if not frame1:
             print("Could not read frame. Exiting... Consider checking your camera configuration.")
+            videostream.stop()
             quit(-1)
 
         # Acquire frame and resize to expected shape [1xHxWx3]

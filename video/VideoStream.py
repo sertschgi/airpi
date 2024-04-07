@@ -7,8 +7,8 @@ class VideoStream:
     def __init__(self, resolution=(400, 250), framerate=30):
         # Initialize the PiCamera and the camera image stream
         self.stream = cv2.VideoCapture(0)
-        ret = self.stream.set(3, resolution[0])
-        ret = self.stream.set(4, resolution[1])
+        # ret = self.stream.set(3, resolution[0])
+        # ret = self.stream.set(4, resolution[1])
 
         # Read first frame from the stream
         (self.grabbed, self.frame) = self.stream.read()
