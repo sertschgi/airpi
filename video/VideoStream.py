@@ -30,8 +30,6 @@ class VideoStream:
         while True:
             # If the camera is stopped, stop the thread
             if self.stopped:
-                # Close camera resources
-                self.stream.release()
                 return
 
             # Otherwise, grab the next frame from the stream
