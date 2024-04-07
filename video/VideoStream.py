@@ -1,17 +1,21 @@
 import cv2
+from picamera2 import Picamera2
 from threading import Thread
+import time
 
 class VideoStream:
     """Camera object that controls video streaming from the Picamera"""
 
-    def __init__(self, resolution=(400, 250), framerate=30):
-        # Initialize the PiCamera and the camera image stream
-        self.stream = cv2.VideoCapture(0)
-        # ret = self.stream.set(3, resolution[0])
-        # ret = self.stream.set(4, resolution[1])
+    def __init__(self, resolution=(650, 420), framerate=30):
+        picam2 = Picamera2()
 
-        # Read first frame from the stream
-        (self.grabbed, self.frame) = self.stream.read()
+        config = picam2.create_preview_configuration(main={'format': 'RGB888', 'size': resolution, 'fps': framerate})
+        picam2.configure(config)
+
+        picam2.start()
+        time.sleep(1)
+
+        self.frame = picam2.capture_array("main")
 
         # Variable to control when the camera is stopped
         self.stopped = False
