@@ -38,12 +38,13 @@ def inference(videostream, det, ser):
 
         # Acquire frame and resize to expected shape [1xHxWx3]
         frame = frame1.copy()
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        frame_resized = cv2.resize(frame_rgb, (det.height, det.width))
+        # frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame_resized = cv2.resize(frame, (det.height, det.width))
         input_data = np.expand_dims(frame_resized, axis=0)
 
-        cv2.imshow('image', frame_rgb)
+        cv2.imshow('image', frame)
         if cv2.waitKey(1) == ord('q'):
+            videostream.stop()
             cv2.destroyAllWindows()
             break
 
