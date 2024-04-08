@@ -8,7 +8,7 @@ def parseArgs():
     # Define and parse input arguments
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--serial_port', help='Name of the Serial-Port', default='ttyAMA0')
+    parser.add_argument('--serial_port', help='Name of the Serial-Port', default='ttySC0')
     parser.add_argument('--serial_baudrate', help='Name of the Serial-Port', default=9600)
 
     parser.add_argument('--modeldir', help='Folder the .tflite file is located in', default='model')
@@ -52,8 +52,8 @@ def inference(videostream, det, ser):
         if det.boxes is not None and det.scores[0] > 0.70:
             outFormat = det.getRawFormatForArdu(det.boxes[0])
             print(det.boxes)
-            outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}".encode()
-            ser.write(outStr)
+            outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}\n"
+            ser.write(outStr.encode())
             print(outStr)
 
 
