@@ -42,7 +42,7 @@ def inference(videostream, det, ser):
         frame_resized = cv2.resize(frame, (det.height, det.width))
         input_data = np.expand_dims(frame_resized, axis=0)
 
-        cv2.imshow('image', frame)
+        # cv2.imshow('image', frame)
         if cv2.waitKey(1) == ord('q'):
             videostream.stop()
             cv2.destroyAllWindows()
@@ -51,10 +51,9 @@ def inference(videostream, det, ser):
         det.detect(input_data)
         if det.boxes is not None and det.scores[0] > 0.70:
             outFormat = det.getRawFormatForArdu(det.boxes[0])
-            print(det.boxes)
             outStr = f"R{outFormat[0]};{outFormat[1]};{outFormat[2]};{outFormat[3]}\n"
             ser.write(outStr.encode())
-            print(outStr)
+            #print(outStr.encode())
 
 
 def setup():
